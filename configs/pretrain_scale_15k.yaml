@@ -1,0 +1,48 @@
+data:
+  source: ztf
+  seq_len: 200
+  ztf_cache_dir: data/scale/n15000
+  ztf_band: r
+  ztf_min_epochs: 120
+  ztf_val_frac: 0.1
+  n_jobs: -1
+
+mask:
+  n_target_blocks: 4
+  target_block_frac: [0.10, 0.20]
+  context_keep_frac: 0.85
+
+model:
+  d_model: 256
+  n_heads: 4
+  enc_depth: 6
+  pred_depth: 2
+  rollout_depth: 2
+  mlp_ratio: 2.0
+  dropout: 0.0
+  time_embed: fourier
+  n_fourier: 32
+
+loss:
+  pred_weight: 1.0
+  rollout_weight: 0.1
+  vic_var_weight: 1.0
+  vic_cov_weight: 0.04
+  vic_var_target: 1.0
+
+optim:
+  epochs: 50
+  batch_size: 256
+  lr: 5.0e-4
+  weight_decay: 0.04
+  warmup_epochs: 5
+  ema_base: 0.997
+  ema_final: 1.0
+  grad_clip: 1.0
+
+run:
+  seed: 0
+  device: null
+  out_dir: runs/scale_15k
+  log_every: 50
+  probe_every: 5

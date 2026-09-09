@@ -1,0 +1,51 @@
+data:
+  seq_len: 200
+  n_train: 8000
+  n_val: 1000
+  log_tau_range: [1.5, 3.0]
+  log_sigma_range: [-1.3, -0.3]
+  cadence_days: 3.0
+  cadence_jitter: 1.0
+  season_gap_frac: 0.25
+  phot_err: 0.02
+  n_jobs: -1      
+
+mask:
+  n_target_blocks: 4
+  target_block_frac: [0.10, 0.20]
+  context_keep_frac: 0.85
+
+model:
+  d_model: 128
+  n_heads: 4
+  enc_depth: 4
+  pred_depth: 2
+  rollout_depth: 2
+  mlp_ratio: 2.0
+  dropout: 0.0
+  time_embed: fourier
+  n_fourier: 32
+
+loss:
+  pred_weight: 1.0
+  rollout_weight: 0.5
+  vic_var_weight: 1.0
+  vic_cov_weight: 0.04
+  vic_var_target: 1.0
+
+optim:
+  epochs: 30
+  batch_size: 128
+  lr: 1.5e-3
+  weight_decay: 0.04
+  warmup_epochs: 3
+  ema_base: 0.996
+  ema_final: 1.0
+  grad_clip: 1.0
+
+run:
+  seed: 0
+  device: null        
+  out_dir: runs/synthetic
+  log_every: 20
+  probe_every: 5
